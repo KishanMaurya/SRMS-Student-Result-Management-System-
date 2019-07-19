@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+
+{% block main_wrapper %}
+    <div class="container-fluid" style="background-color:white">
+        <div class="row text-center d-block">
+            <h2 class="text-primary bold pb-25"><a href="{% url 'home' %}">Student Result Management System</a></h2>
+        </div>
+        <h4 style="text-align:right"><a href="{% url 'dashboard:pdf' id=object.id %}" target="_blank">Save as PDF</a></h4>
+        <div class="container" id="marksheet">
+            <p>
+                <b>Student Name     : </b>  {{ object.select_student.student_name | safe }}
+            </p>
+            <p>
+                <b>Student Class    : </b>  {{ object.select_class.class_name }}   ( <b>{{ object.select_class.section | safe }}</b> )
+            </p>
+            <p>
+                <b>Student Roll : </b> {{ object.select_student.student_roll | safe }}
+            </p>
+            <h2 class="text-center text-primary">Mark Sheet</h2>
+            
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Subject Name</th>
+                        <th scope="col">Mark</th>
+                    </tr>
+                </thead>
+                <tbody id="table-row">
+                    
+                    {% for mark in marks %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            
+                            {% for m in mark %}
+                                <td>{{ m }}</td>
+                            {% endfor %}
+                                
+                        </tr>
+                    {% endfor %}
+                        
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="shadow-lg p-3">
+            <span class="link"><a href="{% url 'home' %}">Back To Home</a></span>
+        </div>
+    </div>   
+    
+{% endblock main_wrapper %}
+  
